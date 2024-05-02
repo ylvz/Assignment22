@@ -14,30 +14,30 @@ namespace Assignment22
         double preBalance;
         double postBalance;
 
+
         public Security() 
         {
             transactionHistory = new List<Stamp>();
         }
 
+        // Records a pre-transaction stamp containing the client ID and balance before the transaction.
         public void MakePreTransactionStamp(double balance,int clientId)
         {
             Stamp stamp = new Stamp(clientId, balance);
-            //Create stamp w client id and balance
-            //Add stamp to transactionHistory list
             transactionHistory.Add(stamp);
             preBalance = balance;
-            //assign parameter balance to pre balance and return string about info 
         }
 
+        // Records a post-transaction stamp containing the client ID and balance after the transaction.
         public void MakePostTransactionStamp(double balance,int clientId)
         {
-            //Exactly the same as MakePreTransactionStamp except you assign balance to postBalance
             Stamp stamp = new Stamp(clientId, balance);
             transactionHistory.Add(stamp);
             postBalance = balance;
 
         }
 
+        // Verifies the last transaction to ensure the recorded balances align correctly; increments error count if not.
         public void VerifyLastTransaction()
         {
             // Assumes transactionHistory has the correct ordering of pre and post transaction states

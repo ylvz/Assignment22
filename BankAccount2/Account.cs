@@ -14,14 +14,18 @@ namespace Part2
 
         public void NoDeadLockTransfer(Mutex mutexLock, Accunt reciever,int amount, string account,string recieverName)
         {
-            mutexLock.WaitOne();
-            Thread.Sleep(500);
-            reciever.transferMutex.WaitOne();
-            reciever.balance -= amount;
-            Console.WriteLine(account + " is inside the transfer method");
-            Console.WriteLine($"{amount} was transferred to {recieverName} from {account}. {account} " + $"Current balance = {balance}");
-            mutexLock.ReleaseMutex();
-            reciever.transferMutex.ReleaseMutex();
+            try
+            {
+                mutexLock.WaitOne();
+                Thread.Sleep(500);
+                reciever.transferMutex.WaitOne();
+                reciever.balance -= amount;
+                Console.WriteLine(account + " is inside the transfer method.");
+                Console.WriteLine($"{amount} was transferred to {recieverName} from {account}. {account} " + $"Current balance = {balance}");
+                mutexLock.ReleaseMutex();
+            }
+            finally { reciever.transferMutex.ReleaseMutex(); }
+
         }
 
         public void DeadlockTransfer(Accunt reciever, int amount, string account,string recieverName) 
@@ -33,8 +37,8 @@ namespace Part2
                 {
                     reciever.balance -= amount;
                     balance -= amount;
-                    Console.WriteLine();
-                    Console.WriteLine();
+                    Console.WriteLine(account + " is inside the transfer method.");
+                    Console.WriteLine($"{amount} was transferred to {recieverName} from {account}. {account} " + $"Current balance = {balance}");
                 }
             }
         }

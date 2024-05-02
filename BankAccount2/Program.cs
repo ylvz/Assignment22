@@ -8,19 +8,20 @@
             Transaction transaction = new Transaction();
             bool validInput = false;
 
+            //Make the user input 
             while(!validInput)
             {
-                Console.WriteLine("Press 1 for failing to lock or 2 successful locking.");
+                Console.WriteLine("Press 1 for failed locking or 2 for successful locking.");
                 string input = Console.ReadLine();
 
                 switch (input)
                 {
                     case "1":
-                        transaction.StartDeadlockTransaction();
+                        transaction.StartDeadlockThreads();
                         validInput = true;
                         break;
                     case "2":
-                        transaction.StartNoDeadlockTransaction();
+                        transaction.StartNoDeadlockThreads();
                         validInput = true;
                         break;
                     default:

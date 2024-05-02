@@ -13,6 +13,7 @@ public class BankAccount
     Security security = new Security();
     Mutex mutex = new Mutex();
 
+    // Executes a transaction on the bank account with thread safety, records security stamps, and verifies the transaction.
     public void Transaction(double amount, int clientId)
     {
         try
@@ -29,6 +30,7 @@ public class BankAccount
 
     }
 
+    // Returns the number of transaction-related errors detected by the security system.
     public int GetNumberOfErrors()
     {
         return security.numberOfErrors;

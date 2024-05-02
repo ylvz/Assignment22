@@ -6,12 +6,14 @@ public class Client
     private BankAccount account;
     private bool operating = true;
 
+    // Constructor initializes a new client with a specified bank account and client ID.
     public Client(BankAccount account, int clientId)
     {
         this.account = account;
         Id = clientId;
     }
 
+    // Continuously performs random transactions on the bank account until stopped.
     public void Run()
     {
         Random random = new Random(Id);
@@ -25,5 +27,7 @@ public class Client
         }
     }
 
+
+    // Stops the client from making further transactions.
     public void Stop() => operating = false;
 }

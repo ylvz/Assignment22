@@ -2,7 +2,8 @@
 
 class Program
 {
-    
+
+    // Entry point for the console application. Sets up bank account management with multiple client threads.
     static void Main(string[] args)
     {
         BankAccount sharedAccount = new BankAccount();
