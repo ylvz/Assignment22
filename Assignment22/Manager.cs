@@ -1,18 +1,16 @@
 ﻿using Assignment22;
 
-internal class Main
+internal class Manager
 {
     private List<Client> clients = new List<Client>();
     private List<Thread> threads = new List<Thread>();
     private BankAccount bankAccount;
     public volatile bool operating = true;  // Use volatile to ensure visibility across threads
-    public static Semaphore semaphore = new Semaphore(1, 1);
-    private object lockObject = new object();
     private Security security = new Security();
 
 
 
-    public Main(BankAccount bankAccount)
+    public Manager(BankAccount bankAccount)
     {
         this.bankAccount = bankAccount;
     }
@@ -43,6 +41,6 @@ internal class Main
     {
         Console.WriteLine($"Final Balance: {bankAccount.balance}");
         Console.WriteLine($"Total Transactions: {bankAccount.totalTransactions}");
-        Console.WriteLine($"Number of Errors Detected: {security.numberOfErrors}");
+        Console.WriteLine($"Number of Errors Detected: {bankAccount.GetNumberOfErrors()}"); 
     }
 }

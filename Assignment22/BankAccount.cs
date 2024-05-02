@@ -11,20 +11,24 @@ public class BankAccount
     public double balance { get; private set; }
     public int totalTransactions { get; private set; }
     Security security = new Security();
-    private readonly Mutex mutex = new Mutex();
+    //Mutex mutex = new Mutex();
+
 
 
     public void Transaction(double amount, int clientId)
     {
-        mutex.WaitOne(); // Start of critical section
+        //try
+        //{
+        //    mutex.WaitOne();
+            security.MakePreTransactionStamp(balance, clientId);
+            balance += amount;
+            totalTransactions++;
+            security.MakePostTransactionStamp(balance, clientId);
+            security.VerifyLastTransaction();
+        //}
 
-        security.MakePreTransactionStamp(balance, clientId);
-        balance += amount;
-        totalTransactions++;
-        security.MakePostTransactionStamp(balance, clientId);
-        security.VerifyLastTransaction();
+        //finally { mutex.ReleaseMutex(); }
 
-        mutex.ReleaseMutex(); // End of critical section
     }
 
     public int GetNumberOfErrors()

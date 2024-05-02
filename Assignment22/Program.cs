@@ -2,12 +2,13 @@
 
 class Program
 {
-    private static SemaphoreSlim consoleSempahore=new SemaphoreSlim(1,1);
+    
     static void Main(string[] args)
     {
         BankAccount sharedAccount = new BankAccount();
         List<Client> clients = new List<Client>();
         List<Thread> clientThreads = new List<Thread>();
+        Manager manager = new Manager(sharedAccount);
 
         for (int i = 0; i < 5; i++)
         {
@@ -24,9 +25,7 @@ class Program
         clients.ForEach(client => client.Stop());
         clientThreads.ForEach(thread => thread.Join());
 
-        Console.WriteLine($"Final Balance: {sharedAccount.balance}");
-        Console.WriteLine($"Total Transactions: {sharedAccount.totalTransactions}");
-        Console.WriteLine($"Total Errors: {sharedAccount.GetNumberOfErrors}");
+        manager.GatherResults();
         Console.ReadKey();
     }
 }

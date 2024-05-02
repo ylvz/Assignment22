@@ -47,6 +47,7 @@ namespace Assignment22
             var lastTransaction = transactionHistory[transactionHistory.Count - 1];
             var previousTransaction = transactionHistory[transactionHistory.Count - 2];
 
+
             // Verify if the post transaction balance matches expected balance from the pre transaction state
             if (previousTransaction.balance + (postBalance - preBalance) != lastTransaction.balance)
             {
